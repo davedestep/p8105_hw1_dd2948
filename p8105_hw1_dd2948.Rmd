@@ -2,7 +2,7 @@
 title: "p8105_hw1_dd2948"
 author: "David DeStephano"
 date: "September 15, 2019"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -70,6 +70,17 @@ A logical vector indicating whether x + y > 1
 A numeric vector created by coercing the above logical vector
 A factor vector created by coercing the above logical vector
 
+```{r}
+hw_one_df = tibble(
+  x = rnorm(500, sd = 1),
+  y = rnorm(500, sd = 1), 
+  q2_vec_logical = x + y > 0,
+  q2_vec_num = as.numeric(q2_vec_logical),
+  q2_vec_factor = as.factor(q2_vec_logical)
+)
+```  
+  
+  
 
 
 
