@@ -1,0 +1,83 @@
+---
+title: "p8105_hw1_dd2948"
+author: "David DeStephano"
+date: "September 15, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 0.2
+This “problem” focuses on correct styling for your solutions to Problems 1 and 2. We will look for:
+
+meaningful variable / object names
+readable code (one command per line; adequate whitespace and indentation; etc)
+clearly-written text to explain code and results
+a lack of superfluous code (no unused variables are defined; no extra library calls; ect)
+
+## Problem 1
+```{r}
+library(tibble)
+library(tidyverse)
+hw_one_df = tibble(
+  random_sample = rnorm(8, sd = 1), 
+  vec_logical = random_sample > 0, 
+  #check if "True" when greater than 0
+  
+  vec_char = c("Dave", "Ashley", "Brian", "Luke", "Jackson", "Emma", "Katherine", "Eight"),
+  
+  vec_factor = factor(c("male", "female", "male", "male", "male", "female", "female", "number" ))
+)
+
+mean(pull(hw_one_df, random_sample))
+mean(pull(hw_one_df, vec_logical))
+mean(pull(hw_one_df, vec_char))
+mean(pull(hw_one_df, vec_factor))
+```
+You can only get the mean of variables that have numeric values, you can not take a mean for variables are character variables eg:names or classes
+
+#Code Chunk 1 CHANGE TO PULL??
+```{r}
+num_vec_logical <- as.numeric(hw_one_df$vec_logical)
+num_vec_char <- as.numeric(hw_one_df$vec_char)
+num_vec_factor <- as.numeric(hw_one_df$vec_factor)
+```
+
+#Code Chunk 2  CHANGE TO PULL?? and naming??
+```{r}
+#convert the logical vector to numeric, and multiply the random sample by the result
+num_vec_logical2 <- as.numeric(hw_one_df$vec_logical)
+num_vec_logical2*hw_one_df$random_sample
+
+#convert the logical vector to a factor, and multiply the random sample by the result
+num_vec_logical3 <- as.factor(hw_one_df$vec_logical)
+num_vec_logical3*hw_one_df$random_sample
+#NOT MEANINGFUL FOR FACTORS
+
+#convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
+num_vec_logical4 <- as.factor(hw_one_df$vec_logical)
+num_vec_logical4 <- as.numeric(num_vec_logical4)
+num_vec_logical4*hw_one_df$random_sample
+
+```
+##Problem 2
+Create a data frame comprised of:
+x: a random sample of size 500 from a standard Normal distribution
+y: a random sample of size 500 from a standard Normal distribution
+A logical vector indicating whether x + y > 1
+A numeric vector created by coercing the above logical vector
+A factor vector created by coercing the above logical vector
+
+
+
+
+
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
