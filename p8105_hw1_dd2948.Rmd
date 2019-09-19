@@ -18,6 +18,7 @@ clearly-written text to explain code and results
 a lack of superfluous code (no unused variables are defined; no extra library calls; ect)
 
 ## Problem 1
+This code loads the libraries we will need for this project and creates the data frame (using the tibble library) we will need for question one
 ```{r}
 library(tibble)
 library(tidyverse)
@@ -30,31 +31,36 @@ hw_one_df = tibble(
   
   vec_factor = factor(c("male", "female", "male", "male", "male", "female", "female", "number" ))
 )
+```
 
+```{r}
 mean(pull(hw_one_df, random_sample))
 mean(pull(hw_one_df, vec_logical))
 mean(pull(hw_one_df, vec_char))
 mean(pull(hw_one_df, vec_factor))
 ```
-You can only get the mean of variables that have numeric values, you can not take a mean for variables are character variables eg:names or classes
+You can only get the mean of variables that are stored numerically, you can not take a mean for variables that are character variables. Neither the character or factor vectors work in this code.
 
-#Code Chunk 1 CHANGE TO PULL??
-```{r}
+#Code Chunk 1
+```{r, message = FALSE, warning = FALSE}
 num_vec_logical <- as.numeric(hw_one_df$vec_logical)
 num_vec_char <- as.numeric(hw_one_df$vec_char)
 num_vec_factor <- as.numeric(hw_one_df$vec_factor)
 ```
+The character vector cannot be converted to numeric, because there is no corresponding numeric value that can be applied to character strings. Factor variables and logical variables can both be converted to numeric binary values.
 
-#Code Chunk 2  CHANGE TO PULL?? and naming??
+#Code Chunk 2  
 ```{r}
 #convert the logical vector to numeric, and multiply the random sample by the result
 num_vec_logical2 <- as.numeric(hw_one_df$vec_logical)
 num_vec_logical2*hw_one_df$random_sample
 
+
 #convert the logical vector to a factor, and multiply the random sample by the result
 num_vec_logical3 <- as.factor(hw_one_df$vec_logical)
 num_vec_logical3*hw_one_df$random_sample
 #NOT MEANINGFUL FOR FACTORS
+
 
 #convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
 num_vec_logical4 <- as.factor(hw_one_df$vec_logical)
@@ -62,6 +68,7 @@ num_vec_logical4 <- as.numeric(num_vec_logical4)
 num_vec_logical4*hw_one_df$random_sample
 
 ```
+
 ##Problem 2
 Create a data frame comprised of:
 x: a random sample of size 500 from a standard Normal distribution
@@ -70,26 +77,58 @@ A logical vector indicating whether x + y > 1
 A numeric vector created by coercing the above logical vector
 A factor vector created by coercing the above logical vector
 
+
+#Creating the data frame:
 ```{r}
-hw_one_df = tibble(
+q_2_df = tibble(
   x = rnorm(500, sd = 1),
   y = rnorm(500, sd = 1), 
   q2_vec_logical = x + y > 0,
   q2_vec_num = as.numeric(q2_vec_logical),
   q2_vec_factor = as.factor(q2_vec_logical)
 )
+# 
+# nrow(q_2_df)
+# #There are 500 rows
+# ncol(q_2_df)
+# #There are 5 columns
+# 
+# mean(pull(q_2_df, x))
+# median(pull(q_2_df, x))
+# sd(pull(q_2_df, x))
+# #Mean -0.04676723
+# #Median -0.06674865
+# #SD 1.013879
+# 
+# #the proportion of cases for which x + y > 1
+
 ```  
+There are `r nrow(q_2_df)` rows
 
-  
-  
+There are `r ncol(q_2_df)` columns
+
+The mean is `r mean(pull(q_2_df, x))`
+
+The median is `r median(pull(q_2_df, x))`
+
+The standard deviation is `r sd(pull(q_2_df, x))`
+
+The proportion of cases in which x+y>1 is `r mean(pull(q_2_df,q2_vec_logical))`
+
+
+#Plot
+Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scale
 
 
 
+```{r}
+ ggplot(q_2_df, aes(x = x, y = y, color=q2_vec_logical)) + geom_point() 
+#The color scale could be changed if we wanted, but the default is red and blue for a logical vector
+ggsave("scatter_plot.pdf", height = 4, width = 6)
 
+ggplot(q_2_df, aes(x = x, y = y, color=q2_vec_num)) + geom_point() 
+#The color scale changes to a gradient because R assums there are values between0 and 1, when 0 and 1 just represent true and false
 
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+ggplot(q_2_df, aes(x = x, y = y, color=q2_vec_factor)) + geom_point() 
+#The color scale remains the same as the logical vector plot, because there are only two levels in the factor variable
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
