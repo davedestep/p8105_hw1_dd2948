@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Problem 0.2
-This “problem” focuses on correct styling for your solutions to Problems 1 and 2. We will look for:
+This problem focuses on correct styling for your solutions to Problems 1 and 2. We will look for:
 
 meaningful variable / object names
 readable code (one command per line; adequate whitespace and indentation; etc)
@@ -29,7 +29,7 @@ hw_one_df = tibble(
   
   vec_char = c("Dave", "Ashley", "Brian", "Luke", "Jackson", "Emma", "Katherine", "Eight"),
   
-  vec_factor = factor(c("male", "female", "male", "male", "male", "female", "female", "number" ))
+  vec_factor = factor(c("male", "female", "male", "unknown", "male", "female", "female", "number" ))
 )
 ```
 
