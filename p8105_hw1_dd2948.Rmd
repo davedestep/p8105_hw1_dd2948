@@ -79,6 +79,7 @@ hw_one_df = tibble(
   q2_vec_factor = as.factor(q2_vec_logical)
 )
 ```  
+
   
   
 
